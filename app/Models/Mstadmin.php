@@ -8,5 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Mstadmin extends Model
 {
     use HasFactory;
-
 }

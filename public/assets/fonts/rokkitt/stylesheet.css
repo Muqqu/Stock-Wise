@@ -1,0 +1,26 @@
+@font-face {
+    font-family: 'Rokkitt';
+    src: url('Rokkitt-Medium.eot');
+    src: url('Rokkitt-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Rokkitt-Medium.woff2') format('woff2'),
+        url('Rokkitt-Medium.woff') format('woff'),
+        url('Rokkitt-Medium.ttf') format('truetype'),
+        url('Rokkitt-Medium.svg#Rokkitt-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Rokkitt';
+    src: url('Rokkitt-SemiBold.eot');
+    src: url('Rokkitt-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('Rokkitt-SemiBold.woff2') format('woff2'),
+        url('Rokkitt-SemiBold.woff') format('woff'),
+        url('Rokkitt-SemiBold.ttf') format('truetype'),
+        url('Rokkitt-SemiBold.svg#Rokkitt-SemiBold') format('svg');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+

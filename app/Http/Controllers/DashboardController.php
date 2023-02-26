@@ -61,7 +61,7 @@ class DashboardController extends Controller
 
         // $withdrawChart = DB::table('withdrawrequest')->pluck('amount')->toArray();
 
-        return view('dashboard', ['data' => $data,'totalsum' => $totalsum, 'totalsumwithdraw' => $totalsumwithdraw, 'totalbalanceprofit' => $totalbalanceprofit,]);
+        return view('dashboard', ['data' => $data, 'totalsum' => $totalsum, 'totalsumwithdraw' => $totalsumwithdraw, 'totalbalanceprofit' => $totalbalanceprofit,]);
     }
 
     //------- Transection  -----------//
@@ -71,15 +71,15 @@ class DashboardController extends Controller
         $data = DB::table('transections')->where('isApproved', 0)->get();
         return view('transaction', ['data' => $data]);
     }
-      //------ GET in modal Transections Amount  ------//
+    //------ GET in modal Transections Amount  ------//
 
-      public function gettransections($id)
-      {
-          $data = DB::table('transections')->where('transectionId', $id)->first();
-          return response()->json($data);
-      }
-  
-      //------- Transection update and Insert functions -----------//
+    public function gettransections($id)
+    {
+        $data = DB::table('transections')->where('transectionId', $id)->first();
+        return response()->json($data);
+    }
+
+    //------- Transection update and Insert functions -----------//
 
     public function updatetransections(Request $request)
     {
@@ -90,10 +90,10 @@ class DashboardController extends Controller
         if ($existingTransaction) {
             return response()->json(['error' => 'Transaction already exists'], 400);
         }
-         // Set a default value for transaction_type if it is null or empty
-    if (empty($data['transaction_type'])) {
-        $data['transaction_type'] = 'recharge';
-    }
+        // Set a default value for transaction_type if it is null or empty
+        if (empty($data['transaction_type'])) {
+            $data['transaction_type'] = 'recharge';
+        }
 
         // Update the transaction in the transections table
         DB::table('transections')
@@ -141,10 +141,9 @@ class DashboardController extends Controller
                         ->increment('balance', $referrerAmount);
                 }
             }
-        
         }
-                        return response()->json(['success' => 'Updated successfully'], 201);
-                    }
+        return response()->json(['success' => 'Updated successfully'], 201);
+    }
 
 
     //-------- Delete Transection ---------//
@@ -157,14 +156,14 @@ class DashboardController extends Controller
         ], 201);
     }
 
-     ///------  withdraw -----///
+    ///------  withdraw -----///
 
-     public function WithdrawPage()
-     {
-         $draw = DB::table('withdrawrequest')->where('isApproved', 0)->get();
-         return view('withdraw', ['draw' => $draw]);
-     }
-      //---------- WithDraw Request Fetch data -------//
+    public function WithdrawPage()
+    {
+        $draw = DB::table('withdrawrequest')->where('isApproved', 0)->get();
+        return view('withdraw', ['draw' => $draw]);
+    }
+    //---------- WithDraw Request Fetch data -------//
 
     public function getwithdraw($id)
     {
@@ -175,30 +174,30 @@ class DashboardController extends Controller
 
         return response()->json($withdrawData);
     }
- 
-     public function updateWithdraw(Request $request, $withdrawRequestId)
-     {
-         // Retrieve the form data
-         $amount = $request->input('amount');
- 
-         // Update the withdrawal amount
-         $affectedRows = DB::table('withdrawrequest')
-             ->where('withdrawRequestId', $withdrawRequestId)
-             ->update(['amount' => $amount, 'isApproved' => 1]);
- 
-         if ($affectedRows > 0) {
-             return response()->json(['success' => true]);
-         }
- 
-         return response()->json(['success' => false]);
-     }
-     public function withdrawdestroy($id)
-     {
-         DB::table('withdrawrequest')->where('withdrawRequestId', $id)->delete();
-         return response()->json([
-             'success' => 'Successfully Deleted',
-         ], 201);
-     }
+
+    public function updateWithdraw(Request $request, $withdrawRequestId)
+    {
+        // Retrieve the form data
+        $amount = $request->input('amount');
+
+        // Update the withdrawal amount
+        $affectedRows = DB::table('withdrawrequest')
+            ->where('withdrawRequestId', $withdrawRequestId)
+            ->update(['amount' => $amount, 'isApproved' => 1]);
+
+        if ($affectedRows > 0) {
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
+    }
+    public function withdrawdestroy($id)
+    {
+        DB::table('withdrawrequest')->where('withdrawRequestId', $id)->delete();
+        return response()->json([
+            'success' => 'Successfully Deleted',
+        ], 201);
+    }
 
     //---------- Delete buy stock data Delete -------//
 
@@ -218,22 +217,22 @@ class DashboardController extends Controller
         return view('company', ['company' => $company]);
     }
 
-      //----- Company Store data ----------///
+    //----- Company Store data ----------///
 
-      public function storecompany(Request $req)
-      {
-          $addcomapny = [
-              'company_logo' => $req->logourl,
-              'company_name' => $req->companyname,
-              'short_title' => $req->shortname,
-              'profit_margin' => $req->shareprofit,
-              'income' => $req->income,
-          ];
-          DB::table('companies')->where(['companyId' => $req->companyId])->insert($addcomapny);
-          return response()->json([
-              'success' => 'Updated successfully',
-          ], 201);
-      }
+    public function storecompany(Request $req)
+    {
+        $addcomapny = [
+            'company_logo' => $req->logourl,
+            'company_name' => $req->companyname,
+            'short_title' => $req->shortname,
+            'profit_margin' => $req->shareprofit,
+            'income' => $req->income,
+        ];
+        DB::table('companies')->where(['companyId' => $req->companyId])->insert($addcomapny);
+        return response()->json([
+            'success' => 'Updated successfully',
+        ], 201);
+    }
 
     public function companydestroy($companyId)
     {
@@ -248,7 +247,7 @@ class DashboardController extends Controller
         $manageuser = DB::table('mstuser')->get();
         return view('manageuser', ['manageuser' => $manageuser]);
     }
-   
+
     public function BuyStock()
     {
         $buystock = DB::table('buystock')->get();
